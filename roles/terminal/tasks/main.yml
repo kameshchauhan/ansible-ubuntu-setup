@@ -1,0 +1,93 @@
+# roles/terminal/tasks/main.yml
+---
+- name: Add Warp Preview repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://app.warp.dev/pkg/linux/preview {{ ansible_distribution_release }} main"
+    state: present
+    filename: warp-preview
+  become: true
+
+- name: Install Warp Preview
+  apt:
+    name: warp-preview
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Install ZSH
+  apt:
+    name: zsh
+    state: present
+  become: true
+
+- name: Install required fonts
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - fonts-powerline
+    - fonts-firacode
+  become: true
+
+- name: Download and install MesloLGS NF fonts
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/{{ item | basename }}"
+  loop:
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+    - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+
+- name: Update font cache
+  command: fc-cache -f -v
+  changed_when: false
+
+- name: Change default shell to zsh
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  become: true
+
+- name: Install Oh My Zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  args:
+    creates: "{{ ansible_user_dir }}/.oh-my-zsh"
+
+- name: Install Powerlevel10k theme
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
+
+- name: Install ZSH plugins
+  git:
+    repo: "https://github.com/{{ item.repo }}"
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
+    depth: 1
+  loop: "{{ zsh_plugins }}"
+
+- name: Install terminal utilities
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ terminal_utilities }}"
+  become: true
+
+- name: Copy .zshrc configuration
+  template:
+    src: zshrc.j2
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    backup: yes
+
+- name: Copy Powerlevel10k configuration
+  template:
+    src: p10k.zsh.j2
+    dest: "{{ ansible_user_dir }}/.p10k.zsh"
+    backup: yes
+
+- name: Copy custom aliases
+  template:
+    src: aliases.zsh.j2
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh/custom/aliases.zsh"
+    backup: yes

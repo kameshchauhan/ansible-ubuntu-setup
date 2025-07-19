@@ -1,0 +1,50 @@
+# roles/terminal/templates/zshrc.j2
+# Enable Powerlevel10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Path to oh-my-zsh installation
+export ZSH="$HOME/.oh-my-zsh"
+
+# Theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Plugins
+plugins=(
+  git
+  docker
+  docker-compose
+  kubectl
+  npm
+  pip
+  python
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-autocomplete
+  you-should-use
+  alias-tips
+  zsh-completions
+  fzf
+  aws
+  terraform
+  golang
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# Custom environment variables
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR='vim'
+
+# FZF Configuration
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Load Powerlevel10k config
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Load custom aliases
+[[ -f ~/.oh-my-zsh/custom/aliases.zsh ]] && source ~/.oh-my-zsh/custom/aliases.zsh
+
+# Load Starship
+eval "$(starship init zsh)"

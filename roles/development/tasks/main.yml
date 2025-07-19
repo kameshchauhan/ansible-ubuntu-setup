@@ -1,0 +1,24 @@
+---
+- name: Install development tools
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - vim
+      - git
+      - make
+      - gcc
+      - g++
+      - gdb
+      - nodejs
+      - npm
+
+- name: Install global NPM packages
+  npm:
+    name: "{{ item }}"
+    global: yes
+  loop:
+    - typescript
+    - @angular/cli
+    - yarn

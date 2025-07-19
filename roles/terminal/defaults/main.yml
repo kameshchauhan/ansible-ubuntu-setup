@@ -1,0 +1,23 @@
+# roles/terminal/defaults/main.yml
+---
+zsh_plugins:
+  - { repo: 'zsh-users/zsh-autosuggestions', name: 'zsh-autosuggestions' }
+  - { repo: 'zsh-users/zsh-syntax-highlighting', name: 'zsh-syntax-highlighting' }
+  - { repo: 'marlonrichert/zsh-autocomplete', name: 'zsh-autocomplete' }
+  - { repo: 'MichaelAquilina/zsh-you-should-use', name: 'you-should-use' }
+  - { repo: 'djui/alias-tips', name: 'alias-tips' }
+  - { repo: 'zsh-users/zsh-completions', name: 'zsh-completions' }
+
+terminal_utilities:
+  - fzf
+  - ripgrep
+  - bat
+  - exa
+  - fd-find
+  - neofetch
+  - tldr
+  - jq
+  - tree
+  - htop
+  - ncdu
+  - tmux

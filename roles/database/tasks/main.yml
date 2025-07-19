@@ -1,0 +1,11 @@
+---
+- name: Install database clients
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - sqlite3
+      - postgresql-client
+      - mysql-client
+      - mongodb-clients

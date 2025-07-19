@@ -1,0 +1,29 @@
+
+# kubectx and kubens plugin 
+fpath=($ZSH/custom/completions $fpath)
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+export MYENV="/home/kameshc/KAMESH/ENV"
+export GO=/usr/local/go
+
+export SQLLITE=/home/kameshc/KAMESH/WORK/sqlite
+export PATH=$PATH:/usr/local/bin:$HOME/.local/bin:$GO/bin:$(go env GOPATH)/bin:$MYENV:$SQLLITE
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+export FLYTECTL_CONFIG=/home/kameshc/.flyte/config-sandbox.yaml 
+export EOPA_LICENSE_KEY=F004C4-24F043-11C64F-38CB0A-959EA2-V3
+
+
+export KUBECOLOR_PRESET="protanopia-dark"
+export KUBECOLOR_CONFIG="$HOME/.kube/color.yaml"
+
+# export EDITOR='code-insiders'
+# export KUBE_EDITOR='code-insiders'
+export EDITOR='subl -w'
+
+# Starship Config
+export STARSHIP_CONFIG=~/.config/starship.toml

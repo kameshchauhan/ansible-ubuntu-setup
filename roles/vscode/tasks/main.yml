@@ -1,0 +1,19 @@
+---
+- name: Add VSCode repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+
+- name: Install Visual Studio Code
+  apt:
+    name: code
+    state: present
+
+- name: Install VSCode extensions
+  command: code --install-extension {{ item }}
+  loop:
+    - ms-python.python
+    - ms-azuretools.vscode-docker
+    - redhat.ansible
+    - hashicorp.terraform
+    - golang.go

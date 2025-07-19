@@ -1,0 +1,52 @@
+# roles/terminal/templates/aliases.zsh.j2
+
+# Better defaults
+alias ls='exa --icons --git'
+alias ll='exa -l --icons --git'
+alias la='exa -la --icons --git'
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias top='htop'
+alias df='df -h'
+alias du='ncdu'
+
+# Git aliases
+alias gs='git status'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git pull'
+alias gd='git diff'
+alias gco='git checkout'
+
+# Docker aliases
+alias d='docker'
+alias dc='docker-compose'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+
+# microk8s aliases
+alias kubectl="microk8s kubectl"
+
+# Kubernetes aliases
+alias kubectl="kubecolor"
+alias k="kubectl"
+alias kg="kubectl get"
+alias ke="kubectl edit"
+alias kgo="kubectl get -o yaml"
+alias kns='kubectl config set-context --current --namespace'
+alias kctx='kubectl config use-context'
+
+# kubectx
+alias kx="kubectx"
+alias kn="kubens"
+
+# Python aliases
+alias py='python3'
+alias pip='pip3'
+alias activate='source venv/bin/activate'
+
+# cat prettifier
+alias cat="batcat"
+
+

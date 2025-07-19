@@ -1,0 +1,15 @@
+---
+- name: Setup Ubuntu Development Environment
+  hosts: localhost
+  become: yes
+  roles:
+    - base
+    - terminal
+    - python
+    - docker
+    - development
+    - utilities
+    - vscode
+    - kubernetes
+    # - database
+
